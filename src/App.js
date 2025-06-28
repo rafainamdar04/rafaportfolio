@@ -1,18 +1,20 @@
 import './App.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useEffect } from 'react';
-
+import Aurora from './components/Aurora';
+import { useEffect, useState } from 'react';
 import {
-  SiJavascript, SiPython, SiCplusplus, SiReact, SiNodedotjs,
-  SiExpress, SiMongodb, SiHtml5, SiCss3, SiTailwindcss, SiGithub, SiPostman
+  SiJavascript, SiPython, SiHtml5, SiCss3, SiMongodb, SiPostman, SiReact,
+  SiNodedotjs, SiExpress, SiTailwindcss, SiGithub, SiBootstrap, SiJupyter,
+  SiNumpy, SiScikitlearn, SiPandas, SiPostgresql, SiStreamlit, SiMysql
 } from "react-icons/si";
-import { FaCode, FaLinkedin, FaGithub } from "react-icons/fa";
+import {  FaPinterest, FaCode, FaLinkedin, FaGithub, FaExternalLinkAlt, FaSun, FaMoon, FaTerminal, FaDatabase } from "react-icons/fa";
 
 function Footer() {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" id="contact">
       <p>© {new Date().getFullYear()} Rafa Inamdar</p>
+      <p className="footer-email">rafainamdar2@gmail.com</p>
       <div className="footer-icons">
         <a href="https://www.linkedin.com/in/rafa-inamdar-477162247/" target="_blank" rel="noopener noreferrer">
           <FaLinkedin />
@@ -20,199 +22,334 @@ function Footer() {
         <a href="https://github.com/rafainamdar04" target="_blank" rel="noopener noreferrer">
           <FaGithub />
         </a>
+        <a href="https://in.pinterest.com/rafainamdar2/" target="_blank" rel="noopener noreferrer">
+          <FaPinterest />
+        </a>
       </div>
     </footer>
   );
 }
 
 function App() {
+  const [dark, setDark] = useState(true);
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
   }, []);
 
+  useEffect(() => {
+    document.body.className = dark ? 'dark-theme' : 'light-theme';
+  }, [dark]);
+
+  const toggleTheme = () => setDark(!dark);
+
   const projects = [
-    { name: "FinSight", desc: "Personal finance tracker with analytics" },
-    { name: "RSVP App", desc: "MERN stack RSVP event manager" },
-    { name: "Habit Tracker", desc: "Track your habits with streak history" },
-  ];
+  {
+    name: "MERN Modular Auth App",
+    desc: "A full-stack MERN authentication app with JWT, protected routes, Bootstrap 5 UI, reusable components, and dark/light mode.",
+    github: "https://github.com/rafainamdar04/AuthApp",
+    stack: ["MongoDB Atlas", "Express", "React", "Node.js"]
+  },
+  {
+    name: "Big Data Exploration with Pandas, Dask & Polars",
+    desc: "Benchmarked performance on the NYC Taxi dataset using Pandas, Dask, Polars, PyArrow, and Numba. Focused on memory use and computation speed with Parquet files.",
+    github: "https://github.com/rafainamdar04/big_data_exploration",
+    live: "",
+    stack: ["Python", "Pandas", "Dask", "Polars", "PyArrow"]
+  },
+  {
+    name: "Dice Game",
+    desc: "A simple 2-player dice game using HTML, CSS, and JavaScript. Each page refresh rolls dice and declares a winner or draw.",
+    github: "https://github.com/rafainamdar04/dice-game",
+    live: "",
+    stack: ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    name: "React Counter App",
+    desc: "A basic React app with increment/decrement functionality and confetti animation every 10 counts. Mobile-friendly design.",
+    github: "https://github.com/rafainamdar04/counterApp",
+    live: "https://rafainamdar04.github.io/counterApp/",
+    stack: ["React", "CSS"]
+  },
+  {
+    name: "Customer Churn Prediction",
+    desc: "Built ML models to predict telecom customer churn with a Streamlit dashboard for visualization and result interpretation.",
+    github: "https://github.com/rafainamdar04/customerChurnPrediction",
+    live: "",
+    stack: ["Python", "Pandas", "Scikit-Learn", "Streamlit"]
+  },
+  {
+    name: "Sleep Disorder Detection",
+    desc: "Used KNN, SVM, and Logistic Regression to predict sleep disorders. Includes evaluation metrics and performance visualization. Supported project using a reserach paper",
+    github: "https://github.com/rafainamdar04/mlProject",
+    live: "",
+    stack: ["Python", "Scikit-Learn", "Seaborn", "Pandas"]
+  },
+  {
+    name: "Netflix Data Analysis",
+    desc: "Exploratory data analysis of Netflix titles to uncover trends in genre, release year, and country using Python libraries.",
+    github: "https://github.com/rafainamdar04/netflix-analysis",
+    live: "",
+    stack: ["Python", "Pandas", "Matplotlib", "Plotly", "Seaborn"]
+  },
+  {
+    name: "DDoS Attacks & Defense Survey",
+    desc: "A comprehensive research paper analyzing the evolution, taxonomy, and defense mechanisms of DDoS attacks with a focus on cloud, SDN, and IoT. Highlights AI/ML-based mitigation trends and future research directions.",
+    github: "", // Add link if available
+    live: "",
+    stack: ["Research", "Survey", "Security"]
+  }
+];
 
-  const skillGroups = [
-    {
-      title: "Languages",
-      skills: [
-        { name: "JavaScript", icon: <SiJavascript /> },
-        { name: "Python", icon: <SiPython /> },
-        { name: "C++", icon: <SiCplusplus /> },
-      ],
-    },
-    {
-      title: "Frontend",
-      skills: [
-        { name: "React", icon: <SiReact /> },
-        { name: "HTML", icon: <SiHtml5 /> },
-        { name: "CSS", icon: <SiCss3 /> },
-        { name: "Tailwind", icon: <SiTailwindcss /> },
-      ],
-    },
-    {
-      title: "Backend",
-      skills: [
-        { name: "Node.js", icon: <SiNodedotjs /> },
-        { name: "Express", icon: <SiExpress /> },
-      ],
-    },
-    {
-      title: "Databases",
-      skills: [{ name: "MongoDB", icon: <SiMongodb /> }],
-    },
-    {
-      title: "Tools",
-      skills: [
-        { name: "GitHub", icon: <SiGithub /> },
-        { name: "VS Code", icon: <FaCode /> },
-        { name: "Postman", icon: <SiPostman /> },
-      ],
-    },
-  ];
-
-  const experiences = [
+const skillGroups = [
   {
-    title: "Supercore Student Council – Lady Representative",
-    date: "2024–25",
-    desc: "Led the female student body and launched Voices, organizing events like the PCOS Awareness Seminar and Nexus Challenge. Coordinated across teams to drive inclusion, health awareness, and community participation on campus.",
+    title: "Languages & Scripting",
+    skills: [
+      { name: "Python", icon: <SiPython /> },
+      { name: "JavaScript", icon: <SiJavascript /> },
+      { name: "HTML5", icon: <SiHtml5 /> },
+      { name: "CSS3", icon: <SiCss3 /> },
+      { name: "SQL", icon: <SiMysql /> },
+    ],
   },
   {
-    title: "Editorial Board – Joint Secretary",
-    date: "2023–24",
-    desc: "Oversaw editorial content, team operations, social media, and creative direction. Awarded Best Joint Secretary for excellence in leadership, coordination, and timely execution of council communications.",
+    title: "Frontend",
+    skills: [
+      { name: "React.js", icon: <SiReact /> },
+      { name: "Bootstrap", icon: <SiBootstrap /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss /> },
+      { name: "DOM Manipulation", icon: <FaCode /> },
+      { name: "Responsive UI", icon: <FaCode /> },
+    ],
   },
   {
-    title: "Taqneeq Tech Fest – Publicity Subhead",
-    date: "2022–23",
-    desc: "Managed publicity campaigns and cross-functional communication for the college’s annual tech fest. Ensured cohesive branding across platforms by collaborating with tech, logistics, and design teams.",
+    title: "Backend",
+    skills: [
+      { name: "Node.js", icon: <SiNodedotjs /> },
+      { name: "Express.js", icon: <SiExpress /> },
+      { name: "RESTful APIs", icon: <FaCode /> },
+      { name: "JWT Authentication", icon: <FaCode /> },
+      { name: "Mongoose", icon: <FaDatabase /> },
+    ],
   },
   {
-    title: "Social Conclave – Social Media & Content Writing Head",
-    date: "2024",
-    desc: "Led all digital communications, writing, and creative strategy for a large-scale student-led event. Created compelling narratives that elevated the conclave's social impact and outreach.",
+    title: "Databases",
+    skills: [
+      { name: "MongoDB", icon: <SiMongodb /> },
+      { name: "MongoDB Atlas", icon: <SiMongodb /> },
+      { name: "PostgreSQL", icon: <SiPostgresql /> },
+    ],
   },
   {
-    title: "Social Conclave – Publicity Subhead",
-    date: "2023",
-    desc: "Handled promotions, brand positioning, and visual identity for the event. Worked closely with design and outreach to maximize student engagement and visibility.",
+    title: "Deployment & Tools",
+    skills: [
+      { name: "GitHub", icon: <SiGithub /> },
+      { name: "Postman", icon: <SiPostman /> },
+      { name: "VS Code", icon: <FaCode /> },
+      { name: "Render", icon: <FaExternalLinkAlt /> },
+      { name: "Vercel", icon: <FaExternalLinkAlt /> },
+      { name: "Bash", icon: <FaTerminal /> },
+    ],
   },
   {
-    title: "Sattva – Publicity Subhead",
-    date: "2024",
-    desc: "Directed publicity efforts for the cultural fest by unifying messaging across teams. Strengthened brand presence through targeted outreach and event storytelling.",
+    title: "Machine Learning & Data Science",
+    skills: [
+      { name: "Pandas", icon: <SiPandas /> },
+      { name: "NumPy", icon: <SiNumpy /> },
+      { name: "Scikit-Learn", icon: <SiScikitlearn /> },
+      { name: "Matplotlib", icon: <SiPython /> },
+      { name: "Seaborn", icon: <SiPython /> },
+      { name: "Jupyter", icon: <SiJupyter /> },
+    ],
   },
   {
-    title: "Sattva – Workshops Head",
-    date: "2025",
-    desc: "Planned and led a diverse lineup of workshops, managing scheduling, communications, and logistics. Delivered engaging learning experiences in partnership with external collaborators.",
-  },
-  {
-    title: "Voices (Student Council Initiative) – Organizer",
-    date: "2024–25",
-    desc: "Organized the PCOS Awareness Seminar and the Nexus Challenge, building impactful, women-centric platforms. Facilitated inclusive conversations and collaborated with experts to educate and empower students.",
-  },
-  {
-    title: "Open Spaces Community – Core Member",
-    date: "2024–25",
-    desc: "Contributed to the formation of a safe space for dialogue on identity, mental health, and gender issues. Played a key role in event planning, communications, and student mobilization.",
-  },
-  {
-    title: "Jankidevi Public School – Head Girl",
-    date: "2019–20",
-    desc: "Led the student body during a pivotal academic year, representing students in administration and school events. Directed the prefect council and encouraged inclusive participation.",
-  },
-  {
-    title: "Eklavya House – Captain",
-    date: "2018–19",
-    desc: "Managed house teams for academic, cultural, and sports events. Fostered a spirit of collaboration and competitive integrity.",
-  },
-  {
-    title: "Eklavya House – Prefect",
-    date: "2017–18",
-    desc: "Supported student discipline and activity coordination within house teams. Assisted seniors in organizing house-led programs and initiatives.",
-  },
-  {
-    title: "Frank Anthony Memorial Debate – Best Speaker",
-    date: "2018",
-    desc: "Recognized for excellence in public speaking, argumentation, and structured expression at the national level.",
-  },
-  {
-    title: "Frank Anthony Memorial Debate – Best Speaker Runner-Up",
-    date: "2019",
-    desc: "Secured second place nationally for persuasive speaking and structured argument delivery.",
-  },
-  {
-    title: "Times of India – Student Contributor",
-    date: "2019–20",
-    desc: "Featured in two articles highlighting leadership, initiative, and student voice. Shared insights on education, school culture, and personal growth.",
+    title: "Other Tools & Platforms",
+    skills: [
+      { name: "Streamlit", icon: <SiStreamlit /> },
+      { name: "n8n", icon: <FaCode /> },
+      { name: "LangChain", icon: <FaCode /> },
+    ],
   },
 ];
 
-const internships = [
+
+  const experiences = [
+    {
+      title: "Lady Representative & Voices Organizer, Student Council",
+      date: "2024–25",
+      desc: "Represented the female student body, resolved campus grievances, and led inclusivity initiatives. Launched the Voices podcast discussing PCOS and gender awareness.Organized Venture Nexus, a female-centric startup pitch event with wide participation."
+    },
+    {
+      title: "Head – Sattva Workshops",
+      date: "2024–25",
+      desc: "As Head of Sattva Workshops, I organized hands-on student workshops focused on creativity and skills development. I curated engaging learning sessions and coordinated with teams to ensure effective participation, while also handling publicity to draw attention to each event."
+    },
+    {
+      title: "Joint Secretary – Editorial Board",
+      date: "2023–24",
+      desc: "As Joint Secretary, I led the content and creative direction of the Editorial Board, for which I was awarded Best Joint Secretary. I organized flagship events like 'Blind Date with a Book' and the Literary Arts Festival featuring an Open Mic Night and Comic-Con, and oversaw end-to-end content workflows for the team."
+    },
+    {
+      title: "Head – Social Media & Content, Social Conclave",
+      date: "2023–24",
+      desc: "I led the content strategy for Social Conclave, completely revamping the event’s Instagram and LinkedIn presence. I designed a fresh visual identity, managed marketing campaigns, and created compelling content to amplify awareness about key social issues."
+    },
+    {
+      title: "Publicity Subhead – Sattva Cultural Fest",
+      date: "2023–24",
+      desc: "As a Publicity Subhead, I organized creative campaigns and worked to expand the reach and visibility of the conclave. My efforts helped bring in significant engagement by communicating the event’s mission effectively."
+    },
+    {
+      title: "Publicity Subhead – Taqneeq Tech Fest",
+      date: "2022–23",
+      desc: "I managed the publicity for Taqneeq’s workshops and the Cyber Cypher hackathon, which saw over 300 participants. My responsibilities included content creation, visual design, and campus outreach to ensure maximum participation and buzz."
+    },
+    {
+      title: "Publicity Subhead – Social Conclave",
+      date: "2022–23",
+      desc: "I led the content strategy for Social Conclave, completely revamping the event’s Instagram and LinkedIn presence. I designed a fresh visual identity, managed marketing campaigns, and created compelling content to amplify awareness about key social issues."
+    },
+    {
+      title: "Executive – Editorial Board",
+      date: "2022–23",
+      desc: "In my first year as an Editorial Board Executive, I learned social media publicity, creative writing, and content design. I contributed to event promotions and built a strong foundation in team collaboration, laying the groundwork for my future leadership roles."
+    },
+    {
+      title: "Content Executive – IETE Student Chapter",
+      date: "2022–23",
+      desc: "Designed promotional content and managed communication for events. Boosted online presence through effective branding."
+    }
+  ];
+
+  const internships = [
+    {
+      title: "Design & Communication Intern – Spark-A-Change Foundation",
+      date: "May–June 2023",
+      desc: "Designed creatives for social media and supported youth empowerment campaigns. I worked closely with the content and outreach teams to deliver impactful digital content aligned with the foundation’s mission."
+    },
+    {
+      title: "Design Intern – Affinity Sky Designs",
+      date: "July 2023",
+      desc: "At Affinity Sky, I created graphics for digital campaigns, maintained design consistency, and contributed to branding and storytelling. Ensured that visual content aligned with marketing goals and brand identity."
+    },
+    {
+      title: "Open to Internships – Full Stack Roles",
+      date: "2025",
+      desc: "Seeking hands-on experience in MERN stack. Proficient in React, Node.js, MongoDB, and deployment workflows like Render/Vercel."
+    }
+  ];
+  const certifications = [
   {
-    title: "Spark-A-Change Foundation – Design & Communication Intern",
-    date: "May–June 2023",
-    desc: "Designed digital creatives for outreach and community awareness campaigns. Worked with volunteers and communications teams to deliver consistent and impactful messaging.",
+    title: "The Complete 2025 Web Development Bootcamp – Angela Yu",
+    date: "June 2025",
+    desc: "Completed full stack development course covering HTML, CSS, JS, Node, MongoDB, APIs, and deployment.",
+    link: "/certificates/webdev-certificate.pdf"
   },
   {
-    title: "Affinity Sky Designs – Design Intern",
-    date: " July 2023",
-    desc: "Contributed to branding projects by assisting with layout, design consistency, and visual storytelling. Collaborated across teams to align visuals with client and campaign objectives.",
-  },
-  {
-    title: "Open to Internships – Full Stack Roles",
-    date: "2025",
-    desc: "Currently seeking Full Stack internships. Equipped with hands-on project experience and a versatile creative approach.",
-  },
+    title: "IBM Data Science Fundamentals – Coursera",
+    date: "May 2025",
+    desc: "Learned Python, data wrangling, Jupyter, and foundational machine learning with IBM tools.",
+    link: "/certificates/ibm-ds.jpeg"
+  }
 ];
 
   return (
-    <div className="dark-theme">
+    <div className={dark ? "dark-theme" : "light-theme"}>
       <nav className="navbar">
+        <div className="navbar-container">
         <div className="nav-links">
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
+          <a href="#certifications">Certifications</a>
           <a href="#projects">Projects</a>
           <a href="#experience">Experience</a>
           <a href="#internships">Internships</a>
         </div>
-      </nav>
-
-      {/* Hero */}
-      <section className="hero-section section" id="about" data-aos="fade-up">
-        <div className="hero-content">
-          <div className="hero-left">
-            <h1 className="hero-name">Rafa Inamdar</h1>
-            <p className="hero-role">Full Stack Developer.</p>
-          </div>
-          <div className="hero-right">
-            <p className="section-text">
-              I'm Rafa Inamdar, a final-year Computer Engineering student at NMIMS MPSTME with a passion for building tech that solves real problems.<br /><br />
-              Whether it's full stack web development or exploring data science, I enjoy turning complex ideas into intuitive, impactful solutions.<br /><br />
-              Beyond the code, I'm a strong communicator, a fast learner, and a natural collaborator—with experience leading teams, managing events, and contributing to social impact initiatives.
-            </p>
-          </div>
         </div>
-      </section>
+        <button className="theme-toggle" onClick={toggleTheme}>
+          {dark ? <FaSun /> : <FaMoon />}
+        </button>
+    
+      </nav>
+      <section className="hero-section section" id="about" data-aos="fade-up">
+  <Aurora
+    colorStops={["#FFD1FF", "#D9ACF5", "#A076F9"]}
+    blend={0.5}
+    amplitude={1.0}
+    speed={0.5}
+  />
+  <div className="hero-content">
+    <div className="hero-left">
+      <h1 className="hero-name">Rafa Inamdar</h1>
+      <p className="hero-role">Full Stack Developer</p>
+    </div>
+    <div className="hero-right">
+      <p className="section-text">
+        Hi, I’m Rafa — a final-year Computer Engineering student who enjoys building clean, useful, and user-focused tech. I like working on projects that bring ideas to life, whether it’s a web app, a small ML model, or something in between. I’ve also been involved in student-led initiatives and events that let me collaborate, lead, and learn outside the classroom. I’m always looking to pick up new skills, explore unfamiliar tools, and take on challenges that push me to grow. Right now, I’m focusing on full-stack development with the MERN stack, brushing up on DSA, and preparing for software engineering roles. I’m here to learn, build, and improve — one project at a time.
+      </p>
+    </div>
+  </div>
+</section>
 
-      {/* Skills */}
+
+
       <section id="skills" className="section" data-aos="fade-up">
         <h2 className="section-title">Skills</h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {skillGroups.map((group, i) => (
-            <div key={i} className="content-card">
-              <h3>{group.title}</h3>
-              <div className="flex flex-wrap gap-3">
-                {group.skills.map((skill, idx) => (
-                  <div key={idx} className="skill-badge" data-aos="zoom-in" data-aos-delay={idx * 100}>
-                    <span className="text-lg">{skill.icon}</span>
-                    {skill.name}
-                  </div>
+        {skillGroups.map((group, i) => (
+          <div key={i} className="content-card">
+            <h3>{group.title}</h3>
+            <div className="flex flex-wrap gap-3">
+              {group.skills.map((skill, idx) => (
+                <div key={idx} className="skill-badge" data-aos="zoom-in">
+                  {skill.icon} {skill.name}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section id="certifications" className="section" data-aos="fade-up">
+  <h2 className="section-title">Certifications</h2>
+  <div className="timeline-container">
+    {certifications.map((item, idx) => (
+      <div className="timeline-entry" key={idx}>
+        <div className="timeline-text">
+          <h4 className="timeline-title">
+            {item.title}
+            {item.link && (
+              <a href={item.link} target="_blank" rel="noreferrer" className="certificate-link">
+                <FaExternalLinkAlt style={{ marginLeft: "8px" }} />
+              </a>
+            )}
+          </h4>
+          <span className="timeline-date">{item.date}</span>
+          <p className="timeline-desc">{item.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+      <section id="projects" className="section" data-aos="fade-up">
+        <h2 className="section-title">Projects</h2>
+        <div className="project-grid">
+          {projects.map((project, index) => (
+            <div key={index} className="content-card" data-aos="zoom-in">
+              <h3 className="project-title">{project.name}</h3>
+              <p>{project.desc}</p>
+              <div className="project-links">
+                <a href={project.github} target="_blank" rel="noreferrer" title="GitHub">
+                  <FaGithub />
+                </a>
+                {project.live && (
+                  <a href={project.live} target="_blank" rel="noreferrer" title="Live">
+                    <FaExternalLinkAlt />
+                  </a>
+                )}
+              </div>
+              <div className="project-tags">
+                {project.stack.map((tech, i) => (
+                  <span key={i} className="tag">{tech}</span>
                 ))}
               </div>
             </div>
@@ -220,25 +357,11 @@ const internships = [
         </div>
       </section>
 
-      {/* Projects */}
-      <section id="projects" className="section" data-aos="fade-up">
-        <h2 className="section-title">Projects</h2>
-        <div className="project-grid">
-          {projects.map((project, index) => (
-            <div key={index} className="content-card" data-aos="zoom-in">
-              <h3 className="project-title">{project.name}</h3>
-              <p className="text-gray-300 mt-2">{project.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Experience */}
-      <section id="experience" className="vertical-timeline section" data-aos="fade-up">
+      <section id="experience" className="section" data-aos="fade-up">
         <h2 className="section-title">Experience & Leadership</h2>
         <div className="timeline-container">
           {experiences.map((item, idx) => (
-            <div className="content-card timeline-entry" key={idx}>
+            <div className="timeline-entry" key={idx}>
               <div className="timeline-text">
                 <h4 className="timeline-title">{item.title}</h4>
                 <span className="timeline-date">{item.date}</span>
@@ -249,12 +372,11 @@ const internships = [
         </div>
       </section>
 
-      {/* Internships */}
-      <section id="internships" className="vertical-timeline section" data-aos="fade-up">
+      <section id="internships" className="section" data-aos="fade-up">
         <h2 className="section-title">Internships</h2>
         <div className="timeline-container">
           {internships.map((item, idx) => (
-            <div className="content-card timeline-entry" key={idx}>
+            <div className="timeline-entry" key={idx}>
               <div className="timeline-text">
                 <h4 className="timeline-title">{item.title}</h4>
                 <span className="timeline-date">{item.date}</span>
