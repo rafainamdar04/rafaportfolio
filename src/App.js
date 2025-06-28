@@ -201,12 +201,12 @@ const skillGroups = [
     {
       title: "Publicity Subhead – Taqneeq Tech Fest",
       date: "2022–23",
-      desc: "I managed the publicity for Taqneeq’s workshops and the Cyber Cypher hackathon, which saw over 300 participants. My responsibilities included content creation, visual design, and campus outreach to ensure maximum participation and buzz."
+      desc: "Organised efforts to publicize Taqneeq’s workshops and the Cyber Cypher hackathon, which saw over 300 participants. My responsibilities included campus outreach to ensure maximum participation and buzz."
     },
     {
       title: "Publicity Subhead – Social Conclave",
       date: "2022–23",
-      desc: "I led the content strategy for Social Conclave, completely revamping the event’s Instagram and LinkedIn presence. I designed a fresh visual identity, managed marketing campaigns, and created compelling content to amplify awareness about key social issues."
+      desc: "Managed publicity strategies and organised outreach efforts for Social Conclave Conference, boosting engagement and visibility across platforms."
     },
     {
       title: "Executive – Editorial Board",
@@ -216,7 +216,7 @@ const skillGroups = [
     {
       title: "Content Executive – IETE Student Chapter",
       date: "2022–23",
-      desc: "Designed promotional content and managed communication for events. Boosted online presence through effective branding."
+      desc: "Wrote promotional content and managed communication for events."
     }
   ];
 
@@ -229,7 +229,7 @@ const skillGroups = [
     {
       title: "Design Intern – Affinity Sky Designs",
       date: "July 2023",
-      desc: "At Affinity Sky, I created graphics for digital campaigns, maintained design consistency, and contributed to branding and storytelling. Ensured that visual content aligned with marketing goals and brand identity."
+      desc: "Created graphics for digital campaigns, maintained design consistency, and contributed to branding and storytelling. Ensured that visual content aligned with marketing goals and brand identity."
     },
     {
       title: "Open to Internships – Full Stack Roles",
