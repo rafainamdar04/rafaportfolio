@@ -264,11 +264,10 @@ const skillGroups = [
           <a href="#experience">Experience</a>
           <a href="#internships">Internships</a>
         </div>
-        </div>
         <button className="theme-toggle" onClick={toggleTheme}>
           {dark ? <FaSun /> : <FaMoon />}
         </button>
-    
+        </div>
       </nav>
       <section className="hero-section section" id="about" data-aos="fade-up">
   <Aurora
@@ -280,7 +279,7 @@ const skillGroups = [
   <div className="hero-content">
     <div className="hero-left">
       <h1 className="hero-name">Rafa Inamdar</h1>
-      <p className="hero-role">Full Stack Developer</p>
+      <p className="hero-role">Full Stack Developer.</p>
     </div>
     <div className="hero-right">
       <p className="section-text">
