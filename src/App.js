@@ -308,28 +308,6 @@ const skillGroups = [
         ))}
       </section>
 
-      <section id="certifications" className="section" data-aos="fade-up">
-  <h2 className="section-title">Certifications</h2>
-  <div className="timeline-container">
-    {certifications.map((item, idx) => (
-      <div className="timeline-entry" key={idx}>
-        <div className="timeline-text">
-          <h4 className="timeline-title">
-            {item.title}
-            {item.link && (
-              <a href={item.link} target="_blank" rel="noreferrer" className="certificate-link">
-                <FaExternalLinkAlt style={{ marginLeft: "8px" }} />
-              </a>
-            )}
-          </h4>
-          <span className="timeline-date">{item.date}</span>
-          <p className="timeline-desc">{item.desc}</p>
-        </div>
-      </div>
-    ))}
-  </div>
-</section>
-
       <section id="projects" className="section" data-aos="fade-up">
         <h2 className="section-title">Projects</h2>
         <div className="project-grid">
@@ -356,6 +334,28 @@ const skillGroups = [
           ))}
         </div>
       </section>
+
+      <section id="certifications" className="section" data-aos="fade-up">
+  <h2 className="section-title">Certifications</h2>
+  <div className="timeline-container">
+    {certifications.map((item, idx) => (
+      <div className="timeline-entry" key={idx}>
+        <div className="timeline-text">
+          <h4 className="timeline-title">
+            {item.title}
+            {item.link && (
+              <a href={item.link} target="_blank" rel="noreferrer" className="certificate-link">
+                <FaExternalLinkAlt style={{ marginLeft: "8px" }} />
+              </a>
+            )}
+          </h4>
+          <span className="timeline-date">{item.date}</span>
+          <p className="timeline-desc">{item.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
 
       <section id="experience" className="section" data-aos="fade-up">
         <h2 className="section-title">Experience & Leadership</h2>
