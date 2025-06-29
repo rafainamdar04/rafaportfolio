@@ -174,19 +174,19 @@ const skillGroups = [
 
   const experiences = [
     {
-      title: "Lady Representative & Voices Organizer, Student Council",
+      title: "Lady Representative, Student Council",
       date: "2024–25",
       desc: "Represented the female student body, resolved campus grievances, and led inclusivity initiatives. Launched the Voices podcast discussing PCOS and gender awareness.Organized Venture Nexus, a female-centric startup pitch event with wide participation."
     },
     {
       title: "Head – Sattva Workshops",
       date: "2024–25",
-      desc: "As Head of Sattva Workshops, I organized hands-on student workshops focused on creativity and skills development. I curated engaging learning sessions and coordinated with teams to ensure effective participation, while also handling publicity to draw attention to each event."
+      desc: "As Head of Sattva Workshops, my team and I organized hands-on student workshops focused on creativity and skills development. I curated engaging learning sessions and coordinated with teams to ensure effective participation, while also handling publicity to draw attention to each event."
     },
     {
       title: "Joint Secretary – Editorial Board",
       date: "2023–24",
-      desc: "As Joint Secretary, I led the content and creative direction of the Editorial Board, for which I was awarded Best Joint Secretary. I organized flagship events like 'Blind Date with a Book' and the Literary Arts Festival featuring an Open Mic Night and Comic-Con, and oversaw end-to-end content workflows for the team."
+      desc: "As Joint Secretary, I led the publicity efforts and content and creative direction of the committee, for which I was awarded Best Joint Secretary. During my tenure i helped organized flagship events like 'Blind Date with a Book' and 'The Editorial Project', a Literary Arts Festival featuring an Open Mic Night and Comic-Con, and oversaw end-to-end workflows for the team."
     },
     {
       title: "Head – Social Media & Content, Social Conclave",
@@ -196,12 +196,12 @@ const skillGroups = [
     {
       title: "Publicity Subhead – Sattva Cultural Fest",
       date: "2023–24",
-      desc: "As a Publicity Subhead, I organized creative campaigns and worked to expand the reach and visibility of the conclave. My efforts helped bring in significant engagement by communicating the event’s mission effectively."
+      desc: "As a Publicity Subhead, I led my team and worked to expand reach and visibility. Our efforts helped bring in significant engagement by communicating the event’s mission effectively."
     },
     {
       title: "Publicity Subhead – Taqneeq Tech Fest",
       date: "2022–23",
-      desc: "Organised efforts to publicize Taqneeq’s workshops and the Cyber Cypher hackathon, which saw over 300 participants. My responsibilities included campus outreach to ensure maximum participation and buzz."
+      desc: "Organised efforts to publicize MPSTME'S flagship tech fest, Taqneeq’s workshops and the Cyber Cypher hackathon, which saw over 300 participants. My responsibilities included campus outreach to ensure maximum participation and buzz."
     },
     {
       title: "Publicity Subhead – Social Conclave",
