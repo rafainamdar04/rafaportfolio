@@ -251,6 +251,12 @@ h1, h2, h3, h4 {
 .skill-badge:hover {
   transform: scale(1.05);
 }
+.content-card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  color: #fff;
+  font-weight: 600;
+}
 
 /* Projects */
 .project-grid {
