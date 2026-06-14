@@ -2,16 +2,30 @@ import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
-export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
-  apiVersion: '2024-01-01',
-  useCdn: process.env.NODE_ENV === 'production',
-});
+// Lazily create the client so a missing env var fails at request time
+// (caught by callers) instead of crashing the whole production build.
+let _client: ReturnType<typeof createClient> | null = null;
+export function getClient(): ReturnType<typeof createClient> {
+  if (!_client) {
+    const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+    const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+    if (!projectId || !dataset) {
+      throw new Error(
+        'Sanity is not configured: set NEXT_PUBLIC_SANITY_PROJECT_ID and NEXT_PUBLIC_SANITY_DATASET'
+      );
+    }
+    _client = createClient({
+      projectId,
+      dataset,
+      apiVersion: '2024-01-01',
+      useCdn: process.env.NODE_ENV === 'production',
+    });
+  }
+  return _client;
+}
 
-const builder = imageUrlBuilder(client);
 export function urlFor(source: SanityImageSource) {
-  return builder.image(source);
+  return imageUrlBuilder(getClient()).image(source);
 }
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -50,7 +64,7 @@ export type Experience = {
 const noCache = { next: { revalidate: 0 } };
 
 export async function getPosts(): Promise<Post[]> {
-  return client.fetch(
+  return getClient().fetch(
     `*[_type == "post"] | order(publishedAt desc) {
       title,
       slug,
@@ -65,7 +79,7 @@ export async function getPosts(): Promise<Post[]> {
 }
 
 export async function getPost(slug: string): Promise<Post | null> {
-  return client.fetch(
+  return getClient().fetch(
     `*[_type == "post" && slug.current == $slug][0] {
       title,
       slug,
@@ -80,7 +94,7 @@ export async function getPost(slug: string): Promise<Post | null> {
 }
 
 export async function getProjects(): Promise<Project[]> {
-  return client.fetch(
+  return getClient().fetch(
     `*[_type == "project"] | order(order asc, _createdAt desc) {
       title,
       slug,
@@ -95,7 +109,7 @@ export async function getProjects(): Promise<Project[]> {
 }
 
 export async function getExperiences(): Promise<Experience[]> {
-  return client.fetch(
+  return getClient().fetch(
     `*[_type == "experience"] | order(order asc, startDate desc) {
       company,
       position,
@@ -112,5 +126,5 @@ export async function getExperiences(): Promise<Experience[]> {
 }
 
 export async function getPostSlugs(): Promise<{ slug: string }[]> {
-  return client.fetch(`*[_type == "post"]{ "slug": slug.current }`, {}, noCache);
+  return getClient().fetch(`*[_type == "post"]{ "slug": slug.current }`, {}, noCache);
 }
