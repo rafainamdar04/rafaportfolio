@@ -46,6 +46,7 @@ export type Project = {
   link: string | null;
   tags: string[];
   order: number | null;
+  coverImage?: SanityImageSource | null;
 };
 
 export type Experience = {
@@ -57,11 +58,12 @@ export type Experience = {
   endDate: string | null;
   tags: string[];
   order: number | null;
+  coverImage?: SanityImageSource | null;
 };
 
 // ─── Queries ──────────────────────────────────────────────────────────────────
 
-const noCache = { next: { revalidate: 0 } };
+const withCache = { next: { revalidate: 3600 } };
 
 export async function getPosts(): Promise<Post[]> {
   return getClient().fetch(
@@ -74,7 +76,7 @@ export async function getPosts(): Promise<Post[]> {
       tags
     }`,
     {},
-    noCache
+    withCache
   );
 }
 
@@ -89,7 +91,7 @@ export async function getPost(slug: string): Promise<Post | null> {
       tags
     }`,
     { slug },
-    noCache
+    withCache
   );
 }
 
@@ -101,10 +103,11 @@ export async function getProjects(): Promise<Project[]> {
       description,
       link,
       tags,
-      order
+      order,
+      coverImage { asset-> }
     }`,
     {},
-    noCache
+    withCache
   );
 }
 
@@ -118,13 +121,14 @@ export async function getExperiences(): Promise<Experience[]> {
       startDate,
       endDate,
       tags,
-      order
+      order,
+      coverImage { asset-> }
     }`,
     {},
-    noCache
+    withCache
   );
 }
 
 export async function getPostSlugs(): Promise<{ slug: string }[]> {
-  return getClient().fetch(`*[_type == "post"]{ "slug": slug.current }`, {}, noCache);
+  return getClient().fetch(`*[_type == "post"]{ "slug": slug.current }`, {}, withCache);
 }

@@ -59,6 +59,13 @@ export default defineType({
       options: { layout: 'tags' },
     }),
     defineField({
+      name: 'coverImage',
+      title: 'Cover Image',
+      type: 'image',
+      description: 'Company logo or photo shown on the right side of the experience card.',
+      options: { hotspot: true },
+    }),
+    defineField({
       name: 'order',
       title: 'Display Order',
       type: 'number',

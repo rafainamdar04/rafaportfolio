@@ -29,6 +29,13 @@ export default defineType({
       validation: (Rule) => Rule.required().min(20).max(300),
     }),
     defineField({
+      name: 'coverImage',
+      title: 'Cover Image',
+      type: 'image',
+      description: 'Screenshot or preview image shown on the portfolio card.',
+      options: { hotspot: true },
+    }),
+    defineField({
       name: 'link',
       title: 'Project Link',
       type: 'url',

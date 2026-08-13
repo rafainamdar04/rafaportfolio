@@ -1,30 +1,53 @@
-import type { Metadata } from 'next';
-import { Space_Grotesk, Montserrat, JetBrains_Mono } from 'next/font/google';
-import LoadingScreen from '@/app/components/LoadingScreen';
+import type { Metadata, Viewport } from 'next';
+import { Bricolage_Grotesque, Space_Grotesk, Space_Mono } from 'next/font/google';
+import SiteChrome from '@/app/components/SiteChrome';
 import './globals.css';
 
-const spaceGrotesk = Space_Grotesk({
+const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
-  variable: '--font-head-next',
+  variable: '--font-display-next',
   display: 'swap',
+  weight: ['600', '700', '800'],
 });
-const montserrat = Montserrat({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-body-next',
   display: 'swap',
   weight: ['300', '400', '500', '600'],
 });
-const jetbrainsMono = JetBrains_Mono({
+const spaceMono = Space_Mono({
   subsets: ['latin'],
   variable: '--font-mono-next',
   display: 'swap',
-  weight: ['400', '500'],
+  weight: ['400', '700'],
 });
 
+const DESCRIPTION =
+  'Rafa Inamdar. Computer engineer working with data, machine learning, and intelligent systems.';
+
 export const metadata: Metadata = {
-  title: 'Rafa Inamdar — Developer',
-  description: 'Portfolio of Rafa Inamdar — full-stack developer and computer engineering student.',
+  title: 'Rafa Inamdar',
+  description: DESCRIPTION,
   icons: { icon: '/favicon.svg', shortcut: '/favicon.svg' },
+  openGraph: {
+    title: 'Rafa Inamdar',
+    description: DESCRIPTION,
+    type: 'website',
+    siteName: 'Rafa Inamdar',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Rafa Inamdar',
+    description: DESCRIPTION,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)',  color: '#050507' },
+    { media: '(prefers-color-scheme: light)', color: '#f2f0ea' },
+  ],
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -44,8 +67,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={`${spaceGrotesk.variable} ${montserrat.variable} ${jetbrainsMono.variable}`}>
-        <LoadingScreen />
+      <body className={`${bricolage.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}>
+        <SiteChrome />
         {children}
       </body>
     </html>

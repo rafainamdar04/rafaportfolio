@@ -1,138 +1,159 @@
-import Nav from '@/app/components/Nav';
-import StarField from '@/app/components/StarField';
+import Image from 'next/image';
 import RevealWrapper from '@/app/components/RevealWrapper';
-import { getProjects, getExperiences, type Project, type Experience } from '@/lib/sanity';
+import StarField from '@/app/components/StarField';
+import { getProjects, getExperiences, getPosts, urlFor, type Project, type Experience, type Post } from '@/lib/sanity';
+import { formatPeriod } from '@/lib/format-period';
 
-function formatPeriod(startDate: string, endDate: string | null): string {
-  const fmt = (d: string) => {
-    const [y, m] = d.split('-').map(Number);
-    return new Date(y, m - 1, 1).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-  };
-  const start = startDate ? fmt(startDate) : '';
-  const end = endDate ? fmt(endDate) : 'Present';
-  if (!start) return end;
-  if (start === end) return start;
-  return `${start} – ${end}`;
+function formatPostDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
 }
 
 export default async function Home() {
   let projects: Project[] = [];
   let experiences: Experience[] = [];
-  let sanityError: string | null = null;
+  let posts: Post[] = [];
   try {
-    [projects, experiences] = await Promise.all([getProjects(), getExperiences()]);
+    [projects, experiences, posts] = await Promise.all([getProjects(), getExperiences(), getPosts()]);
   } catch (err) {
-    sanityError = String(err);
     console.error('[Sanity] fetch error:', err);
   }
 
   return (
-    <>
-      <StarField />
-      <Nav />
-      <RevealWrapper>
+    <RevealWrapper>
+      <main>
 
-        {/* HERO */}
-        <section id="hero">
-          <div className="container">
-            <div className="hero-eyebrow hero-anim hero-anim-d1">hi i&apos;m,</div>
-            <h1 className="hero-name hero-anim hero-anim-d2">
-              Rafa<br />
-              <span className="dim">Inamdar.</span>
-            </h1>
-            <p className="hero-tagline hero-anim hero-anim-d3">
-              Computer engineering student building full-stack web apps, ML models,
-              and things that solve real problems.
+        {/* ── HERO ─────────────────────────────────────────────────── */}
+        <section className="hero" id="top">
+          <StarField />
+          <div className="scrim" aria-hidden="true" />
+          <div className="wrap">
+            <p className="kicker hero-anim hero-anim-d1">
+              Computer Engineer. <b>Data, machine learning, and intelligent systems.</b>
             </p>
-          </div>
-        </section>
-
-        {/* ABOUT */}
-        <section id="about">
-          <div className="container">
-            <div className="sl reveal">
-              <span className="sl-name">About</span>
-            </div>
-            <div className="about-text reveal reveal-d1">
-              <h2>Building things that <em>matter.</em></h2>
-              <p>
-                I&apos;m a final-year Computer Engineering student at NMIMS MPSTME who enjoys building
-                clean, useful, and user-focused tech. I like working on projects that bring ideas to
-                life — whether it&apos;s a web app, a small ML model, or something in between.
-              </p>
-              <p>
-                I&apos;ve also been involved in student-led initiatives and events that let me collaborate,
-                lead, and learn outside the classroom. I&apos;m focusing on full-stack development with the
-                MERN stack and preparing for software engineering roles.
-              </p>
+            <h1 className="name hero-anim hero-anim-d2">Rafa&nbsp;Inamdar</h1>
+            <p className="lede hero-anim hero-anim-d3">
+              I follow data wherever it lives, and look for the <em>pattern underneath</em>.
+            </p>
+            <div className="hero-links hero-anim hero-anim-d4">
+              <a className="lnk" href="mailto:rafainamdar2@gmail.com">Email</a>
+              <a className="lnk" href="/resume.pdf" target="_blank" rel="noreferrer">Résumé</a>
+              <a className="lnk" href="https://www.linkedin.com/in/rafa-inamdar-477162247/" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a className="lnk" href="https://github.com/rafainamdar04" target="_blank" rel="noreferrer">GitHub</a>
+              <a className="lnk" href="#writing">Writing</a>
             </div>
           </div>
         </section>
 
-        {/* PROJECTS */}
-        <section id="projects">
-          <div className="container">
-            <div className="sl reveal">
-              <span className="sl-name">Projects</span>
+        {/* ── ABOUT ────────────────────────────────────────────────── */}
+        <section className="block" id="about">
+          <div className="wrap">
+            <div className="sec-head reveal">
+              <p className="eyebrow">About</p>
+              <h2 className="title">Data doesn&apos;t care where it came from.</h2>
             </div>
+            <div className="about-grid">
+              <p className="about-lead reveal">
+                Scans, telemetry, support tickets, enterprise records. The source changes; the work
+                doesn&apos;t. <b>Find the structure, test it, see if it holds.</b>
+              </p>
+              <div className="about-body reveal reveal-d1">
+                <p>
+                  I build <strong>machine learning and intelligent systems</strong>: classification
+                  models, retrieval pipelines, and the tooling around them. The question is always the
+                  same one. Is this pattern real, or am I fooling myself?
+                </p>
+                <p>
+                  My day job puts me inside <strong>enterprise data at scale</strong>, where records are
+                  messy, incomplete, and consequential. It taught me that analysis is only as good as
+                  the data underneath it.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── WORK ─────────────────────────────────────────────────── */}
+        <section className="block" id="work">
+          <div className="wrap">
+            <div className="sec-head reveal">
+              <p className="eyebrow">Selected work</p>
+              <h2 className="title">Same instinct, different data.</h2>
+            </div>
+
             {projects.length === 0 ? (
-              <p style={{ color: 'var(--muted)', fontSize: '0.875rem' }}>
-                No projects yet — add some in Sanity Studio.
-              </p>
+              <p className="empty">No projects yet — add some in Sanity Studio.</p>
             ) : (
-              <div className="projects-grid">
+              <div className="projects">
                 {projects.map((p, i) => (
-                  <div key={p.slug.current} className={`proj-card reveal reveal-d${(i % 4) + 1}`}>
-                    <div className="proj-card-top">
-                      <span className="proj-num">{String(i + 1).padStart(2, '0')}</span>
-                      {p.link && <span className="proj-arrow">↗</span>}
-                    </div>
-                    <div className="proj-name">{p.title}</div>
-                    <p className="proj-desc">{p.description}</p>
-                    {p.tags && p.tags.length > 0 && (
-                      <div className="proj-tags">
-                        {p.tags.map((t) => <span key={t} className="proj-tag">{t}</span>)}
+                  <article key={p.slug.current} className={`card reveal reveal-d${(i % 4) + 1}`}>
+                    {p.coverImage && (
+                      <div className="card-shot">
+                        <Image
+                          src={urlFor(p.coverImage).width(800).height(450).fit('crop').url()}
+                          alt={`${p.title} screenshot`}
+                          width={800}
+                          height={450}
+                        />
                       </div>
+                    )}
+                    <p className="val">{String(i + 1).padStart(2, '0')}</p>
+                    <h3>{p.title}</h3>
+                    <p>{p.description}</p>
+                    {p.tags && p.tags.length > 0 && (
+                      <div className="tag-row">{p.tags.join('  ·  ')}</div>
                     )}
                     {p.link && (
-                      <div className="proj-links">
-                        <a href={p.link} target="_blank" rel="noreferrer" className="proj-link">View Project ↗</a>
+                      <div className="card-go">
+                        <a className="lnk" href={p.link} target="_blank" rel="noreferrer">
+                          View project ↗
+                        </a>
                       </div>
                     )}
-                  </div>
+                  </article>
                 ))}
               </div>
             )}
           </div>
         </section>
 
-        {/* EXPERIENCE */}
-        <section id="experience">
-          <div className="container">
-            <div className="sl reveal">
-              <span className="sl-name">Experience</span>
+        {/* ── EXPERIENCE ───────────────────────────────────────────── */}
+        <section className="block" id="experience">
+          <div className="wrap">
+            <div className="sec-head reveal">
+              <p className="eyebrow">Experience</p>
+              <h2 className="title">The path, in order.</h2>
             </div>
-            {sanityError && (
-              <pre style={{ color: 'red', fontSize: '0.75rem', whiteSpace: 'pre-wrap', marginBottom: '1rem' }}>{sanityError}</pre>
-            )}
+
             {experiences.length === 0 ? (
-              <p style={{ color: 'var(--muted)', fontSize: '0.875rem' }}>
-                No experiences yet — add some in Sanity Studio.
-              </p>
+              <p className="empty">No experiences yet — add some in Sanity Studio.</p>
             ) : (
-              <div className="exp-cards">
+              <div className="timeline reveal">
                 {experiences.map((e, i) => (
-                  <div key={e.slug?.current ?? i} className={`exp-card reveal reveal-d${(i % 4) + 1}`}>
-                    <div className="exp-card-company">{e.company}</div>
-                    <div className="exp-card-role">{e.position}</div>
+                  // A missing end date means the role is current — that's what
+                  // fills the timeline node rather than a hard-coded index.
+                  <div key={e.slug?.current ?? i} className={`row${e.endDate ? '' : ' now'}`}>
+                    <span className="node" />
                     {(e.startDate || e.endDate) && (
-                      <div className="exp-card-period">{formatPeriod(e.startDate, e.endDate)}</div>
+                      <p className="when">{formatPeriod(e.startDate, e.endDate)}</p>
                     )}
-                    {e.description && <p className="exp-card-desc">{e.description}</p>}
-                    {e.tags && e.tags.length > 0 && (
-                      <div className="proj-tags exp-card-tags">
-                        {e.tags.map((t) => <span key={t} className="proj-tag">{t}</span>)}
+                    <div className="row-head">
+                      {e.coverImage && (
+                        <Image
+                          src={urlFor(e.coverImage).width(120).height(120).fit('crop').url()}
+                          alt={`${e.company} logo`}
+                          width={38}
+                          height={38}
+                          className="row-logo"
+                        />
+                      )}
+                      <div>
+                        <h3>{e.position}</h3>
+                        <p className="org">{e.company}</p>
                       </div>
+                    </div>
+                    {e.description && <p className="desc">{e.description}</p>}
+                    {e.tags && e.tags.length > 0 && (
+                      <div className="tag-row">{e.tags.join('  ·  ')}</div>
                     )}
                   </div>
                 ))}
@@ -141,48 +162,54 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* CONTACT */}
-        <section id="contact">
-          <div className="container">
-            <div className="sl reveal">
-              <span className="sl-name">Get in touch</span>
+        {/* ── WRITING ──────────────────────────────────────────────── */}
+        <section className="block" id="writing">
+          <div className="wrap">
+            <div className="sec-head reveal">
+              <p className="eyebrow">Writing</p>
+              <h2 className="title">Thinking out loud, in public.</h2>
             </div>
-            <div className="contact-wrap">
-              <p className="contact-sub reveal reveal-d1">
-                Whether you have a project in mind, a role to fill, or just want to say hello — my inbox is always open.
-              </p>
-              <div className="contact-links reveal reveal-d2">
-                <a href="mailto:rafainamdar2@gmail.com" className="contact-link">
-                  <span className="cl-name">Email</span>
-                  <span className="cl-handle">rafainamdar2@gmail.com</span>
-                </a>
-                <a href="https://github.com/rafainamdar04" target="_blank" rel="noreferrer" className="contact-link">
-                  <span className="cl-name">GitHub</span>
-                  <span className="cl-handle">@rafainamdar04</span>
-                </a>
-                <a href="https://www.linkedin.com/in/rafa-inamdar-477162247/" target="_blank" rel="noreferrer" className="contact-link">
-                  <span className="cl-name">LinkedIn</span>
-                  <span className="cl-handle">/in/rafa-inamdar-477162247</span>
-                </a>
-                <a href="https://in.pinterest.com/rafainamdar2/" target="_blank" rel="noreferrer" className="contact-link">
-                  <span className="cl-name">Pinterest</span>
-                  <span className="cl-handle">rafainamdar2</span>
-                </a>
+
+            {posts.length === 0 ? (
+              <p className="empty">No posts yet — add some in Sanity Studio.</p>
+            ) : (
+              <div className="reveal">
+                {posts.map((post) => (
+                  <a
+                    key={post.slug.current}
+                    className="post"
+                    href={post.mediumUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <span className="meta">
+                      {post.publishedAt ? formatPostDate(post.publishedAt) : 'Medium'}
+                    </span>
+                    <div>
+                      <p className="headline">{post.title}</p>
+                      <p className="dek">{post.excerpt}</p>
+                      {post.tags && post.tags.length > 0 && (
+                        <div className="tag-row">{post.tags.join('  ·  ')}</div>
+                      )}
+                    </div>
+                    <span className="go">Read ↗</span>
+                  </a>
+                ))}
               </div>
-            </div>
+            )}
           </div>
         </section>
 
-        {/* FOOTER */}
-        <footer>
-          <div className="container">
-            <div className="footer-inner">
-              <span className="footer-copy">© {new Date().getFullYear()} Rafa Inamdar. All rights reserved.</span>
-            </div>
-          </div>
-        </footer>
+      </main>
 
-      </RevealWrapper>
-    </>
+      <footer>
+        <div className="wrap">
+          <div className="colophon reveal">
+            <span>© {new Date().getFullYear()} Rafa Inamdar</span>
+            <span>Next.js · Sanity</span>
+          </div>
+        </div>
+      </footer>
+    </RevealWrapper>
   );
 }
